@@ -1,0 +1,9 @@
+:root { --ink:#17343b; --muted:#627477; --surface:#f7f5f0; --brand:#236b68; --accent:#d5a56d; --space:clamp(1rem,2vw,2rem); --radius:18px; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); background:var(--surface); font-family:ui-sans-serif,system-ui,sans-serif; }
+.shell { max-width:760px; min-height:100vh; margin:auto; padding:12vh var(--space); display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+.eyebrow { color:var(--brand); font-size:.75rem; letter-spacing:.14em; font-weight:700; }
+h1 { max-width:680px; margin:.5rem 0 1.25rem; font-family:Georgia,serif; font-size:clamp(2.6rem,7vw,5.5rem); line-height:.98; font-weight:500; }
+.lede { max-width:560px; color:var(--muted); font-size:1.2rem; line-height:1.6; }
+button { margin-top:1.25rem; border:0; border-radius:999px; padding:.9rem 1.3rem; color:white; background:var(--brand); font:inherit; cursor:pointer; }
+.note { color:var(--muted); font-size:.8rem; margin-top:3rem; }
