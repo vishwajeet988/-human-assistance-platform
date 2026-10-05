@@ -13,7 +13,8 @@ The product flows and security boundaries are implemented through Phase 9, but t
 - [x] notification, storage and map adapters are explicit
 - [x] customer/provider/admin ownership and role tests exist
 - [x] no private documents or credentials are committed
-- [ ] wire a production PostgreSQL client and transactional booking assignment
+- [x] wire a production PostgreSQL pool for provider persistence
+- [ ] migrate the remaining in-memory bounded contexts and booking assignment to PostgreSQL transactions
 - [ ] configure Razorpay sandbox, then production credentials and webhook secret
 - [ ] configure private object storage and document scanning/retention
 - [ ] configure email/SMS/push providers and delivery monitoring
@@ -21,6 +22,19 @@ The product flows and security boundaries are implemented through Phase 9, but t
 - [ ] add production session/auth integration and rate limiting at the edge
 - [ ] run end-to-end tests against isolated PostgreSQL and real sandbox adapters
 - [ ] perform dependency, load, backup/restore and incident-response reviews
+
+### Validation environment note
+
+On the Windows development host, `npm run lint` can fail before TypeScript starts
+with Node `EPERM: operation not permitted, lstat 'C:\\Users\\ABC'`. The script is
+not weakened and produces no lint diagnostics; standalone `npm run typecheck`
+and the Linux CI workflow run the same TypeScript compiler successfully. This is
+a local Node/npm path-resolution issue to resolve or reproduce on the developer
+machine, not an accepted production exception.
+
+The in-process rate limiter is safe for single-process development only. A
+staging deployment with more than one API instance must enforce equivalent
+limits at the edge or use a shared Redis-compatible store.
 
 ## Deployment notes
 

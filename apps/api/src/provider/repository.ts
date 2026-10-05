@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { AppError } from "../errors.js";
+import { config } from "../config.js";
+import { postgresPool } from "../db/postgres.js";
 import type { AccountStatus, AvailabilityBlock, AvailabilityInput, AvailabilityPatch, EligibilityStatus, OnboardingStatus, ProviderAuditEvent, ProviderDocument, ProviderProfile, ProviderProfilePatch, ProviderRequest, ProviderRequestStatus, ProviderService, ProviderVerification, ServiceArea, VerificationStatus } from "./types.js";
 
 export interface ProviderRepository {
@@ -111,4 +113,7 @@ export function createProviderRepository(options: { mode: "memory" | "postgres";
 }
 
 // Runtime wiring remains explicitly development-memory until the application database client is configured.
-export const providerRepository = createProviderRepository({ mode: "memory" });
+export const providerRepository = createProviderRepository({
+  mode: config.PERSISTENCE_MODE,
+  ...(postgresPool ? { client: postgresPool } : {})
+});

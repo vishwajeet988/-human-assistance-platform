@@ -10,11 +10,13 @@ import { registerPaymentRoutes } from "./payments/routes.js";
 import { registerNotificationRoutes } from "./notifications/routes.js";
 import { registerSafetyRoutes } from "./safety/routes.js";
 import { registerOperationsRoutes } from "./operations/routes.js";
+import { registerRateLimit } from "./security/rate-limit.js";
 
 export function buildServer() {
   const app = Fastify({ logger: { level: config.NODE_ENV === "development" ? "info" : "warn" } });
   app.register(helmet);
   app.register(cors, { origin: false });
+  registerRateLimit(app);
 
   const health = async () => ({ data: { status: "ok" } });
   const ready = async (_request: unknown, reply: { send: (body: unknown) => unknown }) =>
