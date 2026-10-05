@@ -35,7 +35,12 @@ The current development adapter uses an in-memory store behind the same domain c
 - `GET /provider/verification`
 - `POST /provider/verification/submit`
 - `GET|POST /provider/documents`
-- `GET /provider/requests` (reserved foundation; no requests are sent)
+- `GET /provider/requests` (controlled development matching requests)
+- `GET /provider/requests/:id`
+- `POST /provider/requests/:id/view|accept|decline`
+- `GET /customer/bookings/:id/assignment`
+- `GET /admin/matching/bookings` and `/admin/matching/bookings/:id`
+- `POST /admin/bookings/:id/retry-matching|assign-provider|cancel-requests`
 - `GET /admin/providers`
 - `GET /admin/providers/:id`
 - `POST /admin/providers/:id/approve`

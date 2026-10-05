@@ -8,7 +8,7 @@ import { brand } from "../../lib/brand";
 const nav = {
   customer: [["Overview", "/app"], ["Services", "/customer/services"], ["Bookings", "/customer/bookings"], ["People & places", "/app/people"], ["Support", "/app/support"]],
   provider: [["Today", "/provider"], ["Profile", "/provider/profile"], ["Availability", "/provider/availability"], ["Verification", "/provider/verification"], ["Requests", "/provider/requests"]],
-  operations: [["Overview", "/operations"], ["Bookings", "/operations/bookings"], ["Provider review", "/admin/providers"], ["Support", "/operations/support"]]
+  operations: [["Overview", "/operations"], ["Bookings", "/operations/bookings"], ["Matching", "/admin/matching"], ["Provider review", "/admin/providers"], ["Support", "/operations/support"]]
 } as const;
 
 export function AppShell({ role, children }: { role: keyof typeof nav; children: ReactNode }) {

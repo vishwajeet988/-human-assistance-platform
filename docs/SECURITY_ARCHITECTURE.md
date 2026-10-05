@@ -9,3 +9,6 @@ Verification states are factual workflow states, not proof of external checks. D
 Approval, rejection, suspension, and document submission create provider audit events. Customer-facing provider profiles expose only a safe projection: display name, public bio, languages, experience summary, approved service eligibility, service areas, and defined verification labels. Private documents, internal notes, addresses, and contact details are excluded.
 
 Availability validates IANA timezone, weekly day/time ranges, blackout ranges, and overlap. It provides data for future matching but does not assign providers or accept bookings in Phase 4.
+## Phase 5 matching controls
+
+Provider requests are scoped by provider ownership. Acceptance rechecks approval, active account, service eligibility, availability, blackout periods and assigned-booking conflicts. Assignment is serialized in development and must use a PostgreSQL transaction/row lock when the SQL client is wired. Customer assignment responses expose only the customer-safe provider projection; matching scores, private documents and other candidates remain internal. Admin manual assignment requires the admin role and creates an audit event.

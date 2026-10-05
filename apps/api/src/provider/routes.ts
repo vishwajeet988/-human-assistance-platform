@@ -30,8 +30,6 @@ export function registerProviderRoutes(app: FastifyInstance) {
   app.post("/api/v1/provider/verification/submit", async (request) => ({ data: await providerRepository.submitForReview(providerId(request), providerId(request)) }));
   app.get("/api/v1/provider/documents", async (request) => ({ data: (await providerRepository.listDocuments(providerId(request))).map(({ id, documentType, status, uploadedAt }) => ({ id, documentType, status, uploadedAt })) }));
   app.post("/api/v1/provider/documents", async (request, reply) => { const id = providerId(request); const input = parse(documentSchema, request.body); const document = await providerRepository.submitDocument(id, input.documentType, input.storageRef); const { storageRef: _privateStorageRef, ...safeDocument } = document; return reply.code(201).send({ data: safeDocument }); });
-  app.get("/api/v1/provider/requests", async () => ({ data: [], meta: { phase: "reserved-for-matching" } }));
-
   app.get("/api/v1/admin/providers", async (request) => ({ data: await providerRepository.listProviders(), meta: { role: requireAdmin(request) } }));
   app.get<{ Params: { id: string } }>("/api/v1/admin/providers/:id", async (request) => { requireAdmin(request); const id = request.params.id; const documents = (await providerRepository.listDocuments(id)).map(({ storageRef: _privateStorageRef, ...metadata }) => metadata); return { data: { profile: await providerRepository.getProviderForAdmin(id), verification: await providerRepository.getVerification(id), documents, services: await providerRepository.listServices(id) } }; });
   app.post<{ Params: { id: string } }>("/api/v1/admin/providers/:id/approve", async (request) => ({ data: await providerRepository.approve(request.params.id, requireAdmin(request, true)) }));

@@ -4,6 +4,7 @@ import { AppError, unauthorized } from "../errors.js";
 import { config } from "../config.js";
 import { customerStore } from "./store.js";
 import { estimatePrice, validateScheduledStart } from "../catalog/pricing.js";
+import { providerRepository } from "../provider/repository.js";
 
 const familySchema = z.object({ name: z.string().trim().min(2).max(100), relationship: z.string().trim().min(2).max(60), phone: z.string().trim().max(30).optional(), notes: z.string().trim().max(500).optional() });
 const addressSchema = z.object({ label: z.string().trim().min(1).max(40), recipientName: z.string().trim().min(2).max(100), addressLine1: z.string().trim().min(3).max(150), addressLine2: z.string().trim().max(150).optional(), locality: z.string().trim().min(2).max(80), city: z.string().trim().min(2).max(80), state: z.string().trim().min(2).max(80), postalCode: z.string().trim().regex(/^\d{6}$/, "Enter a valid six-digit postal code."), instructions: z.string().trim().max(500).optional() });
@@ -39,5 +40,5 @@ export function registerCustomerRoutes(app: FastifyInstance) {
   });
   app.get("/api/v1/bookings", async (request) => ({ data: customerStore.listBookings(customerId(request)) }));
   app.get<{ Params: { id: string } }>("/api/v1/bookings/:id", async (request) => ({ data: customerStore.getBooking(customerId(request), request.params.id) }));
-  app.post<{ Params: { id: string } }>("/api/v1/bookings/:id/cancel", async (request) => ({ data: customerStore.cancelBooking(customerId(request), request.params.id) }));
+  app.post<{ Params: { id: string } }>("/api/v1/bookings/:id/cancel", async (request) => { const booking = customerStore.cancelBooking(customerId(request), request.params.id); await providerRepository.cancelRequests(booking.id); return { data: booking }; });
 }

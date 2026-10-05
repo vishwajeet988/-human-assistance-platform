@@ -22,3 +22,6 @@ Start local infrastructure with `docker compose up -d` when database-backed work
 Phase 3 customer routes include `/customer/services`, `/customer/services/[slug]`, `/customer/bookings/new`, `/customer/bookings`, `/customer/bookings/[id]`, and `/app/people`. Payment, provider assignment, and live tracking are intentionally out of scope.
 
 Phase 4 provider routes include `/provider/profile`, `/provider/availability`, `/provider/verification`, and `/admin/providers`. Provider approval, service eligibility, and availability are foundations for future matching; no provider is automatically assigned to a booking.
+### Phase 5
+
+Provider matching is now available as a development foundation. Approved eligible providers receive bounded requests based on service, structured service area, availability and booking conflict checks. Payment capture, notifications and live tracking remain intentionally unimplemented.

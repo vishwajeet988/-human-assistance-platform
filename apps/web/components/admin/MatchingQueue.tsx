@@ -1,0 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { apiFetch } from "../../lib/api";
+import { Button } from "../ui/Button";
+import { Badge, Card } from "../ui/Surface";
+import { Notice, EmptyState } from "../ui/Feedback";
+type Booking = { id: string; reference: string; state: string; serviceName: string; assignedProviderId?: string };
+export function MatchingQueue() { const [items, setItems] = useState<Booking[]>([]); const [error, setError] = useState(""); const load = () => apiFetch<Booking[]>("/admin/matching/bookings").then(setItems).catch((cause: Error) => setError(cause.message)); useEffect(() => { void load(); }, []); const retry = async (id: string) => { try { await apiFetch(`/admin/bookings/${id}/retry-matching`, { method: "POST" }); await load(); } catch (cause) { setError((cause as Error).message); } }; if (error) return <Notice tone="error">{error}</Notice>; return <><div className="page-heading"><div><p className="eyebrow">Operations · matching</p><h1>Assignment queue</h1><p className="muted">Review searching bookings without exposing internal scoring to customers.</p></div></div>{!items.length ? <Card><EmptyState title="No bookings in the queue">Matching activity will appear when customer bookings need an assistant.</EmptyState></Card> : <div className="booking-list">{items.map((item) => <Card key={item.id} className="booking-row"><div><p className="eyebrow">{item.reference}</p><h2>{item.serviceName}</h2><p className="muted">{item.assignedProviderId ? `Assigned to ${item.assignedProviderId}` : "No provider assigned"}</p></div><div className="booking-row-end"><Badge tone={item.state === "SEARCHING_PROVIDER" ? "warning" : "success"}>{item.state}</Badge>{["PENDING_PAYMENT", "SEARCHING_PROVIDER"].includes(item.state) && <Button size="sm" onClick={() => retry(item.id)}>Retry matching</Button>}</div></Card>)}</div>}</>; }

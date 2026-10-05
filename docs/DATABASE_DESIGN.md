@@ -28,3 +28,6 @@ All schema changes use versioned migrations. Seed data is development-only, clea
 ## Phase 3 booking decision
 
 Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT`. Payment is not processed in Phase 3, so no payment success or refund is implied. Customer-visible `booking_events` record creation and cancellation.
+## Phase 5 matching
+
+`provider_requests` records controlled candidate invitations for a booking. Phase 5 adds sent/viewed/responded/expiry timestamps, decline reason, explainable score metadata and `CANCELLED` status. `matching_request_events` records request lifecycle events. `bookings.assigned_provider_id` records the winning provider and is indexed with the scheduled start for conflict checks. Production assignment must run in a transaction with a booking row lock; the current development adapter serializes assignment in the matching service.
