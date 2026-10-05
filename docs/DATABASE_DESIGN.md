@@ -31,3 +31,7 @@ Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT
 ## Phase 5 matching
 
 `provider_requests` records controlled candidate invitations for a booking. Phase 5 adds sent/viewed/responded/expiry timestamps, decline reason, explainable score metadata and `CANCELLED` status. `matching_request_events` records request lifecycle events. `bookings.assigned_provider_id` records the winning provider and is indexed with the scheduled start for conflict checks. Production assignment must run in a transaction with a booking row lock; the current development adapter serializes assignment in the matching service.
+
+## Phase 6 financials
+
+`payments`, `payment_webhook_events`, `refunds`, `provider_earnings_ledger` and `financial_audit_events` keep gateway state, idempotency, refunds and commission records separate from booking estimates. Development uses sandbox records; no bank payout is represented.

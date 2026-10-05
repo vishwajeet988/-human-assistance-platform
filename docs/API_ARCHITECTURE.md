@@ -41,6 +41,8 @@ The current development adapter uses an in-memory store behind the same domain c
 - `GET /customer/bookings/:id/assignment`
 - `GET /admin/matching/bookings` and `/admin/matching/bookings/:id`
 - `POST /admin/bookings/:id/retry-matching|assign-provider|cancel-requests`
+- `POST /bookings/:id/payment`, `POST /payments/:id/verify|refund`, `POST /payments/webhook`
+- `GET /admin/payments`, `GET /admin/earnings`
 - `GET /admin/providers`
 - `GET /admin/providers/:id`
 - `POST /admin/providers/:id/approve`

@@ -25,3 +25,5 @@ Phase 4 provider routes include `/provider/profile`, `/provider/availability`, `
 ### Phase 5
 
 Provider matching is now available as a development foundation. Approved eligible providers receive bounded requests based on service, structured service area, availability and booking conflict checks. Payment capture, notifications and live tracking remain intentionally unimplemented.
+
+Phase 6 adds a sandbox financial workflow with server-side payment verification, webhook idempotency and refund/earnings foundations. Configure gateway credentials before production use; no provider payouts are implemented.

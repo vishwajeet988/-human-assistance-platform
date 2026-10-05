@@ -12,3 +12,5 @@ Availability validates IANA timezone, weekly day/time ranges, blackout ranges, a
 ## Phase 5 matching controls
 
 Provider requests are scoped by provider ownership. Acceptance rechecks approval, active account, service eligibility, availability, blackout periods and assigned-booking conflicts. Assignment is serialized in development and must use a PostgreSQL transaction/row lock when the SQL client is wired. Customer assignment responses expose only the customer-safe provider projection; matching scores, private documents and other candidates remain internal. Admin manual assignment requires the admin role and creates an audit event.
+
+Payment verification is server-side HMAC/gateway-adapter validation. Payment creation uses idempotency keys, webhook event IDs are deduplicated, and financial endpoints enforce customer ownership or admin/support roles. Secrets are configuration-only and no payment credentials are committed.
