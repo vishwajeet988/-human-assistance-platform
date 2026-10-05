@@ -4,7 +4,7 @@ Premium, trustworthy non-medical human assistance for when family or friends can
 
 ## Status
 
-Phase 0 discovery and the initial Phase 1 foundation are complete. The repository contains a runnable API/web workspace, database migration foundation, health checks, domain primitives, and local PostgreSQL/Redis composition. Customer/provider workflows are not implemented yet.
+Phases 1–9 are implemented as a development-ready marketplace foundation. Production launch remains gated by the explicit checklist in [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md).
 
 See [docs/CURRENT_STATE.md](docs/CURRENT_STATE.md), [docs/PRODUCT_PLAN.md](docs/PRODUCT_PLAN.md), and [docs/ROADMAP.md](docs/ROADMAP.md) for the project baseline and plan.
 
@@ -19,9 +19,9 @@ npm run build
 
 Start local infrastructure with `docker compose up -d` when database-backed work begins.
 
-Phase 3 customer routes include `/customer/services`, `/customer/services/[slug]`, `/customer/bookings/new`, `/customer/bookings`, `/customer/bookings/[id]`, and `/app/people`. Payment, provider assignment, and live tracking are intentionally out of scope.
+Phase 3 established `/customer/services`, `/customer/services/[slug]`, `/customer/bookings/new`, `/customer/bookings`, `/customer/bookings/[id]`, and `/app/people`.
 
-Phase 4 provider routes include `/provider/profile`, `/provider/availability`, `/provider/verification`, and `/admin/providers`. Provider approval, service eligibility, and availability are foundations for future matching; no provider is automatically assigned to a booking.
+Phase 4 established `/provider/profile`, `/provider/availability`, `/provider/verification`, and `/admin/providers`, including provider approval, eligibility and availability foundations.
 ### Phase 5
 
 Provider matching is now available as a development foundation. Approved eligible providers receive bounded requests based on service, structured service area, availability and booking conflict checks. Payment capture, notifications and live tracking remain intentionally unimplemented.
@@ -33,3 +33,5 @@ Phase 7 adds a customer family space and deduplicated notification foundation. E
 Phase 8 adds safety/location foundations for assigned active services. It is not an ambulance or emergency medical service and live map integrations remain configurable future infrastructure.
 
 Phase 9 adds operations summaries and live-derived marketplace metrics with admin/support access controls.
+
+Phase 10 adds production configuration validation, deployment/environment guidance and a final readiness checklist. The default runtime remains development-memory until PostgreSQL and external providers are explicitly configured.

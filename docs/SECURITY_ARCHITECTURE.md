@@ -18,3 +18,5 @@ Payment verification is server-side HMAC/gateway-adapter validation. Payment cre
 Location endpoints require an assigned provider or owning customer. Coordinates are not available to arbitrary users and sharing requires an active provider tracking session. Emergency reporting is limited to booking participants; the platform records an operations incident but does not present itself as emergency medical infrastructure.
 
 Operations metrics and customer/booking lists require admin or support roles. Mutating actions remain separately restricted to admin where they change trust, assignment or incident state.
+
+Production configuration rejects development secrets and requires PostgreSQL persistence mode. Real deployment still requires edge rate limiting, managed sessions, private storage, provider credentials, backups and monitoring as tracked in `docs/PRODUCTION_READINESS.md`.

@@ -36,5 +36,5 @@ test("production configuration rejects the development JWT secret", () => {
     () => parseConfig({ NODE_ENV: "production", PORT: "4000" }),
     /JWT_SECRET must be explicitly configured in production/
   );
-  assert.equal(parseConfig({ NODE_ENV: "production", PORT: "4000", JWT_SECRET: "a-secure-production-secret" }).NODE_ENV, "production");
+  assert.equal(parseConfig({ NODE_ENV: "production", PORT: "4000", JWT_SECRET: "a-secure-production-secret", PAYMENT_WEBHOOK_SECRET: "a-secure-webhook-secret", DATABASE_URL: "postgresql://localhost/app", PERSISTENCE_MODE: "postgres" }).NODE_ENV, "production");
 });

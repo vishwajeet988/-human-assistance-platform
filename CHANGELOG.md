@@ -19,6 +19,9 @@
 ## Phase 9
 
 - Added operations center summaries, protected customer/booking operations APIs, analytics metrics and operational indexes.
+## Phase 10
+
+- Added production configuration gates, deployment/environment documentation and the launch-readiness checklist.
 ## Phase 5
 
 - Added deterministic eligible-provider matching, controlled requests, expiry, provider accept/decline, customer-safe assignment state, admin retry/manual assignment, and concurrency safeguards.
