@@ -4,11 +4,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "tsx --test test/phase1.test.ts",
+    "test": "tsx --test test/phase1.test.ts test/phase3.test.ts",
     "format:check": "node --check src/server.ts"
   },
   "dependencies": {

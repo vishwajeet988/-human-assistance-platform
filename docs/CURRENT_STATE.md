@@ -4,19 +4,19 @@
 
 - Repository: `human-assistance-platform`
 - Location: Desktop workspace
-- Git: initialized, no commits, current branch `master`
-- Branches/remotes: none configured
-- Project type: empty repository
+- Git: initialized, current branch `feature/platform-mvp`
+- Project type: TypeScript npm workspace monorepo
 
 ## Existing technology
 
-There is currently no application framework, package manager, runtime configuration, database schema, migration system, authentication system, API, UI, test suite, CI configuration, or deployment configuration.
+The Phase 1 workspace, API/web boundaries, runtime configuration, initial PostgreSQL migration with OTP/session tables, API health/readiness routes, RBAC/booking domain primitives, test harness, and local Docker services are in place. Authentication route wiring, persistence access, customer/provider workflows, and deployment remain incomplete.
 
 ## Existing product functionality
 
-None. No existing behavior or data model is available to preserve.
+The web app is a foundation landing screen. The API exposes health/readiness checks and no business resource routes yet.
 
 ## Implication
 
-Because the repository is empty, the project can establish a clean modular monorepo foundation. The initial implementation will use a TypeScript web application with a separate API boundary, PostgreSQL persistence, migrations, server-side RBAC, and a reusable design system. External integrations will be adapter-based and explicitly sandboxed or mocked in development.
+The project can now proceed from foundation into authentication and customer-core work. External integrations remain adapter-based and explicitly sandboxed or mocked in development.
 
+Phase 3 adds the customer catalog and booking experience. The web app now includes customer service browsing, a multi-step booking request, customer-owned people and places, booking history, booking detail, and cancellation. The API uses a development in-memory adapter matching the SQL contract; PostgreSQL repository wiring, provider workflows, payments, tracking, and deployment remain future work.

@@ -2,7 +2,7 @@
 
 ## Core entities
 
-`users`, `roles`, `user_roles`, `customer_profiles`, `provider_profiles`, `dependents`, `addresses`, `emergency_contacts`, `service_categories`, `provider_services`, `provider_areas`, `provider_availability`, `provider_documents`, `verification_records`, `bookings`, `booking_events`, `booking_requirements`, `location_sessions`, `location_points`, `payments`, `refunds`, `provider_earnings`, `reviews`, `notifications`, `incidents`, `support_tickets`, and `audit_logs`.
+`users`, `roles`, `user_roles`, `otp_challenges`, `sessions`, `service_categories`, `services`, `family_members`, `customer_addresses`, `provider_profiles`, `provider_services`, `provider_areas`, `provider_availability`, `provider_documents`, `verification_records`, `bookings`, `booking_events`, `payments`, `refunds`, `provider_earnings`, `reviews`, `notifications`, `incidents`, `support_tickets`, and `audit_logs`.
 
 ## Rules
 
@@ -12,6 +12,8 @@
 - Index booking status/customer/provider/date, provider verification/status, notification recipient/read state, and audit subject/time.
 - Sensitive document metadata is stored separately from private file content; files use private storage and signed, expiring URLs.
 - Location points are scoped to a booking/session and have retention rules; no passive tracking outside a service session.
+- Customer family members and addresses are scoped by `customer_id`; booking APIs verify ownership before reading or mutating either resource.
+- Service pricing and duration options are stored in service configuration; client-submitted totals are never authoritative.
 
 ## Booking event model
 
@@ -21,3 +23,6 @@ Every valid transition creates an immutable `booking_events` record containing a
 
 All schema changes use versioned migrations. Seed data is development-only, clearly labeled, deterministic, and never contains real personal information.
 
+## Phase 3 booking decision
+
+Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT`. Payment is not processed in Phase 3, so no payment success or refund is implied. Customer-visible `booking_events` record creation and cancellation.
