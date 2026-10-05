@@ -13,6 +13,9 @@
 ## Phase 7
 
 - Added family dashboard projections, recipient-scoped notifications, in-app updates and channel adapter foundations.
+## Phase 8
+
+- Added active-service location sharing boundaries, tracking lifecycle, emergency reporting, incident resolution and safety UI.
 ## Phase 5
 
 - Added deterministic eligible-provider matching, controlled requests, expiry, provider accept/decline, customer-safe assignment state, admin retry/manual assignment, and concurrency safeguards.

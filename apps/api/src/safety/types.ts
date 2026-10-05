@@ -1,0 +1,3 @@
+export type TrackingSession = { id: string; bookingId: string; providerId: string; status: "ACTIVE" | "STOPPED"; startedAt: string; stoppedAt?: string };
+export type LocationPoint = { id: string; bookingId: string; providerId: string; latitude: number; longitude: number; accuracyMeters?: number | undefined; capturedAt: string };
+export type Incident = { id: string; bookingId: string; reporterId: string; severity: "LOW" | "MEDIUM" | "HIGH" | "EMERGENCY"; status: "OPEN" | "ACKNOWLEDGED" | "RESOLVED"; description: string; locationId?: string | undefined; createdAt: string; resolvedAt?: string | undefined };

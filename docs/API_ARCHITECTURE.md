@@ -45,6 +45,9 @@ The current development adapter uses an in-memory store behind the same domain c
 - `GET /admin/payments`, `GET /admin/earnings`
 - `GET /customer/family-members/:id/dashboard`
 - `GET /customer/notifications`, `POST /customer/notifications/:id/read`
+- `POST /provider/bookings/:id/tracking/start|location`, `POST /provider/tracking/:id/stop`
+- `GET /customer/bookings/:id/location`, `POST /bookings/:id/emergency`
+- `GET /admin/incidents`, `POST /admin/incidents/:id/resolve`
 - `GET /admin/providers`
 - `GET /admin/providers/:id`
 - `POST /admin/providers/:id/approve`

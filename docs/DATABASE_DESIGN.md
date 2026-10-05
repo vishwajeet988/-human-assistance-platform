@@ -39,3 +39,7 @@ Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT
 ## Phase 7 notifications
 
 `notifications` stores recipient-scoped, channel-specific delivery records with an event/channel uniqueness key. Development adapters complete safely without sending external messages; configured providers can be added behind the same adapter interface.
+
+## Phase 8 safety
+
+Tracking sessions, location points and safety incidents are separate records. Location is retained only for assigned booking participants and tracking sessions can be stopped. Emergency records reference the latest location when present and remain operations-auditable.

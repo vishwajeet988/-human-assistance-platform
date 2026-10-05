@@ -29,3 +29,5 @@ Provider matching is now available as a development foundation. Approved eligibl
 Phase 6 adds a sandbox financial workflow with server-side payment verification, webhook idempotency and refund/earnings foundations. Configure gateway credentials before production use; no provider payouts are implemented.
 
 Phase 7 adds a customer family space and deduplicated notification foundation. External message delivery remains disabled until providers are configured.
+
+Phase 8 adds safety/location foundations for assigned active services. It is not an ambulance or emergency medical service and live map integrations remain configurable future infrastructure.

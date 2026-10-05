@@ -8,6 +8,7 @@ import { registerProviderRoutes } from "./provider/routes.js";
 import { registerMatchingRoutes } from "./matching/routes.js";
 import { registerPaymentRoutes } from "./payments/routes.js";
 import { registerNotificationRoutes } from "./notifications/routes.js";
+import { registerSafetyRoutes } from "./safety/routes.js";
 
 export function buildServer() {
   const app = Fastify({ logger: { level: config.NODE_ENV === "development" ? "info" : "warn" } });
@@ -26,6 +27,7 @@ export function buildServer() {
   registerMatchingRoutes(app);
   registerPaymentRoutes(app);
   registerNotificationRoutes(app);
+  registerSafetyRoutes(app);
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof AppError) return reply.code(error.statusCode).send({ error: { code: error.code, message: error.message } });
     app.log.error(error);
