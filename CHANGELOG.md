@@ -16,6 +16,9 @@
 ## Phase 8
 
 - Added active-service location sharing boundaries, tracking lifecycle, emergency reporting, incident resolution and safety UI.
+## Phase 9
+
+- Added operations center summaries, protected customer/booking operations APIs, analytics metrics and operational indexes.
 ## Phase 5
 
 - Added deterministic eligible-provider matching, controlled requests, expiry, provider accept/decline, customer-safe assignment state, admin retry/manual assignment, and concurrency safeguards.

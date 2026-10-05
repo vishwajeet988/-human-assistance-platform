@@ -16,3 +16,5 @@ Provider requests are scoped by provider ownership. Acceptance rechecks approval
 Payment verification is server-side HMAC/gateway-adapter validation. Payment creation uses idempotency keys, webhook event IDs are deduplicated, and financial endpoints enforce customer ownership or admin/support roles. Secrets are configuration-only and no payment credentials are committed.
 
 Location endpoints require an assigned provider or owning customer. Coordinates are not available to arbitrary users and sharing requires an active provider tracking session. Emergency reporting is limited to booking participants; the platform records an operations incident but does not present itself as emergency medical infrastructure.
+
+Operations metrics and customer/booking lists require admin or support roles. Mutating actions remain separately restricted to admin where they change trust, assignment or incident state.

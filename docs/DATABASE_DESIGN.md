@@ -43,3 +43,7 @@ Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT
 ## Phase 8 safety
 
 Tracking sessions, location points and safety incidents are separate records. Location is retained only for assigned booking participants and tracking sessions can be stopped. Emergency records reference the latest location when present and remain operations-auditable.
+
+## Phase 9 operations
+
+Operational list indexes cover booking state/customer, provider request response and financial audit lookup. Metrics are derived from source records; production deployments should replace in-memory aggregation with indexed SQL aggregates and pagination.

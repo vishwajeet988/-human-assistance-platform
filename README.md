@@ -31,3 +31,5 @@ Phase 6 adds a sandbox financial workflow with server-side payment verification,
 Phase 7 adds a customer family space and deduplicated notification foundation. External message delivery remains disabled until providers are configured.
 
 Phase 8 adds safety/location foundations for assigned active services. It is not an ambulance or emergency medical service and live map integrations remain configurable future infrastructure.
+
+Phase 9 adds operations summaries and live-derived marketplace metrics with admin/support access controls.
