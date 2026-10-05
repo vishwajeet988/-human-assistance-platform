@@ -1,7 +1,8 @@
 export const brand = {
-  name: "Project Companion",
-  shortName: "Companion",
-  tagline: "Trusted help, thoughtfully arranged.",
+  name: "EverBeside",
+  shortName: "EverBeside",
+  tagline: "When you can't be there, we can.",
   description: "Calm, reliable non-medical assistance for the people and pets you care about.",
-  mark: "PC"
+  logoSrc: "/brand/everbeside-logo.png",
+  logoAlt: "EverBeside — When you can't be there, we can."
 } as const;

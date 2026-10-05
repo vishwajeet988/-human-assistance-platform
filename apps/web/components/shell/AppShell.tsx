@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { brand } from "../../lib/brand";
+import { BrandLogo } from "../brand/BrandLogo";
 
 const nav = {
   customer: [["Overview", "/app"], ["Services", "/customer/services"], ["Bookings", "/customer/bookings"], ["Family space", "/app/family"], ["Updates", "/app/notifications"], ["People & places", "/app/people"], ["Support", "/app/support"]],
@@ -16,7 +17,7 @@ export function AppShell({ role, children }: { role: keyof typeof nav; children:
   const links = nav[role];
   return <div className="app-frame">
     <aside className="sidebar">
-      <Link className="brand-lockup" href={role === "customer" ? "/app" : `/${role === "provider" ? "provider" : "operations"}`}><span className="brand-mark">{brand.mark}</span><span><strong>{brand.shortName}</strong><small>{role === "operations" ? "Operations" : role === "provider" ? "Provider space" : "Care space"}</small></span></Link>
+      <Link className="brand-lockup" href={role === "customer" ? "/app" : `/${role === "provider" ? "provider" : "operations"}`}><BrandLogo compact /><span className="shell-brand-name"><strong>{brand.shortName}</strong><small>{role === "operations" ? "Operations" : role === "provider" ? "Provider space" : "Care space"}</small></span></Link>
       <nav aria-label="Primary navigation"><p className="nav-label">Workspace</p>{links.map(([label, href]) => <Link className={pathname === href ? "nav-link active" : "nav-link"} href={href} key={href}><span className="nav-dot" />{label}</Link>)}</nav>
       <div className="sidebar-bottom"><Link className="nav-link" href="/auth/sign-in"><span className="nav-dot" />Sign out</Link></div>
     </aside>
