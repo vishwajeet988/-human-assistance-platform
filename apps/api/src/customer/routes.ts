@@ -5,6 +5,7 @@ import { config } from "../config.js";
 import { customerStore } from "./store.js";
 import { estimatePrice, validateScheduledStart } from "../catalog/pricing.js";
 import { providerRepository } from "../provider/repository.js";
+import { notificationService } from "../notifications/service.js";
 
 const familySchema = z.object({ name: z.string().trim().min(2).max(100), relationship: z.string().trim().min(2).max(60), phone: z.string().trim().max(30).optional(), notes: z.string().trim().max(500).optional() });
 const addressSchema = z.object({ label: z.string().trim().min(1).max(40), recipientName: z.string().trim().min(2).max(100), addressLine1: z.string().trim().min(3).max(150), addressLine2: z.string().trim().max(150).optional(), locality: z.string().trim().min(2).max(80), city: z.string().trim().min(2).max(80), state: z.string().trim().min(2).max(80), postalCode: z.string().trim().regex(/^\d{6}$/, "Enter a valid six-digit postal code."), instructions: z.string().trim().max(500).optional() });
@@ -36,9 +37,11 @@ export function registerCustomerRoutes(app: FastifyInstance) {
     if (!customerStore.ownsAddress(actor, input.addressId)) throw new AppError("FORBIDDEN", "That address is not available to this account.", 403);
     validateScheduledStart(input.scheduledStart); const price = estimatePrice(service, input.durationMinutes);
     const booking = customerStore.createBooking({ customerId: actor, familyMemberId: input.familyMemberId, addressId: input.addressId, serviceSlug: service.slug, serviceName: service.name, scheduledStart: new Date(input.scheduledStart).toISOString(), durationMinutes: input.durationMinutes, requirements: input.requirements, emergencyContact: input.emergencyContact, estimateAmountMinor: price.totalMinor, currency: "INR", state: "PENDING_PAYMENT", idempotencyKey: request.headers["idempotency-key"] as string | undefined });
+    notificationService.emit(actor, `booking-created:${booking.id}`, "Booking received", "Your assistance request was created.");
     return reply.code(201).send({ data: booking });
   });
   app.get("/api/v1/bookings", async (request) => ({ data: customerStore.listBookings(customerId(request)) }));
+  app.get<{ Params: { id: string } }>("/api/v1/customer/family-members/:id/dashboard", async (request) => { const actor = customerId(request); const member = customerStore.getFamilyMember(actor, request.params.id); return { data: { member, bookings: customerStore.listBookings(actor).filter((booking) => booking.familyMemberId === member.id) } }; });
   app.get<{ Params: { id: string } }>("/api/v1/bookings/:id", async (request) => ({ data: customerStore.getBooking(customerId(request), request.params.id) }));
   app.post<{ Params: { id: string } }>("/api/v1/bookings/:id/cancel", async (request) => { const booking = customerStore.cancelBooking(customerId(request), request.params.id); await providerRepository.cancelRequests(booking.id); return { data: booking }; });
 }

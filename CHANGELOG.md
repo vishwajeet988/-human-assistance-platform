@@ -10,6 +10,9 @@
 ## Phase 6
 
 - Added sandbox payment adapter, server verification, webhook idempotency, refunds, commission/earnings ledger and admin payment views.
+## Phase 7
+
+- Added family dashboard projections, recipient-scoped notifications, in-app updates and channel adapter foundations.
 ## Phase 5
 
 - Added deterministic eligible-provider matching, controlled requests, expiry, provider accept/decline, customer-safe assignment state, admin retry/manual assignment, and concurrency safeguards.

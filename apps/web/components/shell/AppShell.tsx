@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { brand } from "../../lib/brand";
 
 const nav = {
-  customer: [["Overview", "/app"], ["Services", "/customer/services"], ["Bookings", "/customer/bookings"], ["People & places", "/app/people"], ["Support", "/app/support"]],
+  customer: [["Overview", "/app"], ["Services", "/customer/services"], ["Bookings", "/customer/bookings"], ["Family space", "/app/family"], ["Updates", "/app/notifications"], ["People & places", "/app/people"], ["Support", "/app/support"]],
   provider: [["Today", "/provider"], ["Profile", "/provider/profile"], ["Availability", "/provider/availability"], ["Verification", "/provider/verification"], ["Requests", "/provider/requests"]],
   operations: [["Overview", "/operations"], ["Bookings", "/operations/bookings"], ["Matching", "/admin/matching"], ["Payments", "/admin/payments"], ["Provider review", "/admin/providers"], ["Support", "/operations/support"]]
 } as const;

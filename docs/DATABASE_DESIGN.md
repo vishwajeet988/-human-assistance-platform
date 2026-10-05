@@ -35,3 +35,7 @@ Booking creation stores a server-calculated estimate and enters `PENDING_PAYMENT
 ## Phase 6 financials
 
 `payments`, `payment_webhook_events`, `refunds`, `provider_earnings_ledger` and `financial_audit_events` keep gateway state, idempotency, refunds and commission records separate from booking estimates. Development uses sandbox records; no bank payout is represented.
+
+## Phase 7 notifications
+
+`notifications` stores recipient-scoped, channel-specific delivery records with an event/channel uniqueness key. Development adapters complete safely without sending external messages; configured providers can be added behind the same adapter interface.

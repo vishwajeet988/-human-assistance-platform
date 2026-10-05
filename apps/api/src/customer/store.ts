@@ -10,6 +10,7 @@ export class CustomerStore {
   private bookings: Booking[] = [];
 
   listFamilyMembers(customerId: string) { return this.familyMembers.filter((item) => item.customerId === customerId); }
+  getFamilyMember(customerId: string, id: string) { const item = this.familyMembers.find((candidate) => candidate.id === id && candidate.customerId === customerId); if (!item) throw new AppError("NOT_FOUND", "Family member not found.", 404); return item; }
   createFamilyMember(customerId: string, input: FamilyMemberInput) { const item = { id: randomUUID(), customerId, ...input }; this.familyMembers.push(item); return item; }
   updateFamilyMember(customerId: string, id: string, input: FamilyMemberPatch) { const item = this.familyMembers.find((candidate) => candidate.id === id && candidate.customerId === customerId); if (!item) throw new AppError("NOT_FOUND", "Family member not found.", 404); Object.assign(item, input); return item; }
   deleteFamilyMember(customerId: string, id: string) { const index = this.familyMembers.findIndex((candidate) => candidate.id === id && candidate.customerId === customerId); if (index < 0) throw new AppError("NOT_FOUND", "Family member not found.", 404); this.familyMembers.splice(index, 1); }
