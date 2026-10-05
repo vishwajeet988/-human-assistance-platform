@@ -20,3 +20,5 @@ npm run build
 Start local infrastructure with `docker compose up -d` when database-backed work begins.
 
 Phase 3 customer routes include `/customer/services`, `/customer/services/[slug]`, `/customer/bookings/new`, `/customer/bookings`, `/customer/bookings/[id]`, and `/app/people`. Payment, provider assignment, and live tracking are intentionally out of scope.
+
+Phase 4 provider routes include `/provider/profile`, `/provider/availability`, `/provider/verification`, and `/admin/providers`. Provider approval, service eligibility, and availability are foundations for future matching; no provider is automatically assigned to a booking.

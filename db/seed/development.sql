@@ -9,3 +9,20 @@ INSERT INTO service_categories (slug, name, description, short_description, long
 ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO services (category_id, name, slug, description) SELECT id, name, slug, short_description FROM service_categories WHERE slug IN ('hospital-appointment-companion', 'elder-companion', 'pet-assistance', 'everyday-assistance') ON CONFLICT (slug) DO NOTHING;
+
+-- Development/demo identities only. These are not real providers and must never be presented as real verification.
+INSERT INTO users (id, email, display_name) VALUES
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 'demo-provider-incomplete@example.test', 'DEVELOPMENT / DEMO - Profile incomplete'),
+  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', 'demo-provider-approved@example.test', 'DEVELOPMENT / DEMO - Approved'),
+  ('cccccccc-cccc-4ccc-8ccc-cccccccccccc', 'demo-provider-suspended@example.test', 'DEVELOPMENT / DEMO - Suspended')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO provider_profiles (user_id, display_name, onboarding_status, account_status, timezone, bio, experience_summary) VALUES
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 'DEVELOPMENT / DEMO - Profile incomplete', 'PROFILE_INCOMPLETE', 'ACTIVE', 'Asia/Kolkata', NULL, NULL),
+  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', 'DEVELOPMENT / DEMO - Approved', 'APPROVED', 'ACTIVE', 'Asia/Kolkata', 'Development-only approved profile. Not a real person.', 'Development demo profile'),
+  ('cccccccc-cccc-4ccc-8ccc-cccccccccccc', 'DEVELOPMENT / DEMO - Suspended', 'SUSPENDED', 'SUSPENDED', 'Asia/Kolkata', NULL, NULL)
+ON CONFLICT (user_id) DO NOTHING;
+
+INSERT INTO provider_services (provider_id, service_slug, eligibility_status) VALUES
+  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', 'elder-companion', 'ELIGIBLE')
+ON CONFLICT (provider_id, service_slug) DO NOTHING;

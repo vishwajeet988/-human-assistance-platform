@@ -1,0 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { apiFetch } from "../../lib/api";
+import { Button } from "../ui/Button";
+import { Badge, Card } from "../ui/Surface";
+import { Notice } from "../ui/Feedback";
+
+type Provider = { userId: string; displayName: string; onboardingStatus: string; accountStatus: string; bio?: string; languages: string[] };
+export function ProviderReview() { const [providers, setProviders] = useState<Provider[]>([]); const [error, setError] = useState(""); useEffect(() => { apiFetch<Provider[]>("/admin/providers").then(setProviders).catch((cause: Error) => setError(cause.message)); }, []); const action = async (id: string, type: "approve" | "suspend") => { try { const result = await apiFetch<Provider>(`/admin/providers/${id}/${type}`, { method: "POST", ...(type === "suspend" ? { body: JSON.stringify({ reason: "Operations review action" }) } : {}) }); setProviders((items) => items.map((item) => item.userId === id ? result : item)); } catch (cause) { setError((cause as Error).message); } }; if (error) return <Notice tone="error">{error}</Notice>; return <div className="admin-provider-list">{providers.map((provider) => <Card key={provider.userId}><div className="page-heading compact-heading"><div><p className="eyebrow">{provider.userId.startsWith("provider-demo") ? "DEVELOPMENT / DEMO" : "Provider"}</p><h2>{provider.displayName}</h2><p className="muted">{provider.bio ?? "No public bio yet."}</p></div><Badge tone={provider.accountStatus === "SUSPENDED" ? "danger" : provider.onboardingStatus === "APPROVED" ? "success" : "warning"}>{provider.onboardingStatus.replaceAll("_", " ")}</Badge></div><div className="provider-meta"><span>Languages: {provider.languages.join(", ") || "Not set"}</span><span>Account: {provider.accountStatus}</span></div><div className="hero-actions"><Button size="sm" onClick={() => action(provider.userId, "approve")} disabled={provider.onboardingStatus === "APPROVED"}>Approve</Button><Button variant="danger" size="sm" onClick={() => action(provider.userId, "suspend")} disabled={provider.accountStatus === "SUSPENDED"}>Suspend</Button></div></Card>)}</div>; }

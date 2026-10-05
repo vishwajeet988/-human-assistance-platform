@@ -2,7 +2,7 @@
 
 ## Core entities
 
-`users`, `roles`, `user_roles`, `otp_challenges`, `sessions`, `service_categories`, `services`, `family_members`, `customer_addresses`, `provider_profiles`, `provider_services`, `provider_areas`, `provider_availability`, `provider_documents`, `verification_records`, `bookings`, `booking_events`, `payments`, `refunds`, `provider_earnings`, `reviews`, `notifications`, `incidents`, `support_tickets`, and `audit_logs`.
+`users`, `roles`, `user_roles`, `otp_challenges`, `sessions`, `service_categories`, `services`, `family_members`, `customer_addresses`, `provider_profiles`, `provider_services`, `provider_service_areas`, `provider_availability`, `provider_documents`, `provider_verifications`, `provider_requests`, `provider_audit_events`, `bookings`, `booking_events`, `payments`, `refunds`, `provider_earnings`, `reviews`, `notifications`, `incidents`, `support_tickets`, and `audit_logs`.
 
 ## Rules
 
@@ -14,6 +14,8 @@
 - Location points are scoped to a booking/session and have retention rules; no passive tracking outside a service session.
 - Customer family members and addresses are scoped by `customer_id`; booking APIs verify ownership before reading or mutating either resource.
 - Service pricing and duration options are stored in service configuration; client-submitted totals are never authoritative.
+- Provider trust state is separate from profile content; provider-owned writes cannot change approval, verification, suspension, rating, or earnings fields.
+- Verification files use private storage references and metadata; no document file is exposed through a public URL.
 
 ## Booking event model
 

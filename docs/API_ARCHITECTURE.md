@@ -25,3 +25,22 @@ Phase 3 routes are versioned under `/api/v1` and return `{ data }` on success or
 All customer resources are ownership-scoped. Booking creation validates active catalog data, timezone-aware future scheduling, configured duration, customer-owned family member/address, and server-side price. `Idempotency-Key` prevents duplicate creation for the same customer request.
 
 The current development adapter uses an in-memory store behind the same domain contracts while PostgreSQL access wiring is completed. The SQL migration and seed files are the persistence contract; production mode does not accept the development customer identity fallback.
+
+## Provider and operations
+
+- `GET|PATCH /provider/profile`
+- `GET|PUT /provider/services`
+- `GET|POST /provider/availability`
+- `PATCH|DELETE /provider/availability/:id`
+- `GET /provider/verification`
+- `POST /provider/verification/submit`
+- `GET|POST /provider/documents`
+- `GET /provider/requests` (reserved foundation; no requests are sent)
+- `GET /admin/providers`
+- `GET /admin/providers/:id`
+- `POST /admin/providers/:id/approve`
+- `POST /admin/providers/:id/reject`
+- `POST /admin/providers/:id/suspend`
+- `GET /providers/:id/public`
+
+Provider persistence is behind `ProviderRepository`. `InMemoryProviderRepository` is used explicitly by the current development runtime and tests. `PostgresProviderRepository` accepts a parameterized `SqlExecutor`; `createProviderRepository({ mode: "postgres", client })` is the production wiring point. Document files use the `DocumentStorage` abstraction and only private storage references are accepted.

@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "tsx --test test/phase1.test.ts test/phase3.test.ts",
+    "test": "tsx --test test/phase1.test.ts test/phase3.test.ts test/phase4.test.ts",
     "format:check": "node --check src/server.ts"
   },
   "dependencies": {

@@ -1,0 +1,15 @@
+export type OnboardingStatus = "REGISTERED" | "PROFILE_INCOMPLETE" | "PROFILE_COMPLETED" | "VERIFICATION_PENDING" | "VERIFICATION_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED" | "DEACTIVATED";
+export type AccountStatus = "ACTIVE" | "SUSPENDED" | "DEACTIVATED";
+export type VerificationStatus = "NOT_STARTED" | "PENDING" | "IN_REVIEW" | "VERIFIED" | "FAILED" | "EXPIRED";
+export type EligibilityStatus = "PENDING" | "ELIGIBLE" | "INELIGIBLE";
+export type ProviderProfile = { userId: string; displayName: string; profilePhotoRef?: string | undefined; bio?: string | undefined; gender?: string | undefined; languages: string[]; experienceSummary?: string | undefined; timezone: string; onboardingStatus: OnboardingStatus; accountStatus: AccountStatus; serviceAreas: ServiceArea[] };
+export type ProviderProfilePatch = { displayName?: string | undefined; profilePhotoRef?: string | undefined; bio?: string | undefined; gender?: string | undefined; languages?: string[] | undefined; experienceSummary?: string | undefined; timezone?: string | undefined };
+export type ProviderService = { providerId: string; serviceSlug: string; eligibilityStatus: EligibilityStatus };
+export type ServiceArea = { id: string; providerId: string; city: string; locality: string; radiusKm?: number | undefined };
+export type AvailabilityBlock = { id: string; providerId: string; kind: "WEEKLY" | "BLACKOUT"; dayOfWeek?: number | undefined; startTime?: string | undefined; endTime?: string | undefined; timezone: string; startsAt?: string | undefined; endsAt?: string | undefined; active: boolean };
+export type AvailabilityInput = Omit<AvailabilityBlock, "id" | "providerId">;
+export type AvailabilityPatch = { kind?: "WEEKLY" | "BLACKOUT" | undefined; dayOfWeek?: number | undefined; startTime?: string | undefined; endTime?: string | undefined; timezone?: string | undefined; startsAt?: string | undefined; endsAt?: string | undefined; active?: boolean | undefined };
+export type ProviderDocument = { id: string; providerId: string; documentType: string; status: VerificationStatus; storageRef: string; uploadedAt: string; reviewedAt?: string | undefined; rejectionReason?: string | undefined };
+export type ProviderVerification = { id: string; providerId: string; verificationType: "IDENTITY" | "ADDRESS" | "BACKGROUND" | "TRAINING"; status: VerificationStatus; externalReference?: string | undefined; submittedAt?: string | undefined; completedAt?: string | undefined; expiresAt?: string | undefined; developmentOnly: boolean };
+export type ProviderRequest = { id: string; bookingId: string; providerId: string; status: "CREATED" | "SENT" | "VIEWED" | "ACCEPTED" | "DECLINED" | "EXPIRED" };
+export type ProviderAuditEvent = { id: string; providerId: string; actorId: string; action: string; reason?: string | undefined; createdAt: string };

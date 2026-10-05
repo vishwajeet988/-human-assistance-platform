@@ -4,6 +4,7 @@ import helmet from "@fastify/helmet";
 import { config } from "./config.js";
 import { AppError } from "./errors.js";
 import { registerCustomerRoutes } from "./customer/routes.js";
+import { registerProviderRoutes } from "./provider/routes.js";
 
 export function buildServer() {
   const app = Fastify({ logger: { level: config.NODE_ENV === "development" ? "info" : "warn" } });
@@ -18,6 +19,7 @@ export function buildServer() {
   app.get("/api/v1/health", health);
   app.get("/api/v1/ready", ready);
   registerCustomerRoutes(app);
+  registerProviderRoutes(app);
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof AppError) return reply.code(error.statusCode).send({ error: { code: error.code, message: error.message } });
     app.log.error(error);
